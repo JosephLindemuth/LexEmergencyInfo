@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lexington Emergency Information</title>
+    <!-- <script src="http://yui.yahooapis.com/3.18.1/build/yui/yui-min.js"></script> -->
+    <style>
+        body {
+            margin: 40px;
+            font-family: 'Arial', "Helvetica Neue", Helvetica, sans-serif;
+        }
+        .databox {
+            background-color: none;
+            color: #1D1D1D;
+            border-radius: 6px;
+            padding: 10px;
+            text-align:center;
+        }
+        
+        .header {
+            grid-area: header;
+            -ms-grid-row: 1;
+            -ms-grid-column: 1;
+            -ms-grid-column-span: 13;
+        }
+        
+        .open {
+            grid-area: open;
+        }
+        
+        .incident {
+            grid-area: incident;
+            -ms-grid-row: 3;
+            -ms-grid-column: 1;
+        }
+        
+        .databox.incident {
+            text-align:center;
+            -ms-grid-row: 1;
+            -ms-grid-column: 1;
+        }
+        
+        .type {
+            grid-area: type;
+            -ms-grid-row: 3;
+            -ms-grid-column: 3;
+        }
+        
+        .databox.type {
+            -ms-grid-row: 1;
+            -ms-grid-column: 3;
+            text-align:center;
+        }
+        
+        .alarm {
+            grid-area: alarm;
+            -ms-grid-row: 3;
+            -ms-grid-column: 5;
+        }
+        
+        .databox.alarm {
+            -ms-grid-row: 1;
+            -ms-grid-column: 5;
+            text-align:center;
+        }
+        
+        .enroute {
+            grid-area: enroute;
+            -ms-grid-row: 3;
+            -ms-grid-column: 7;
+        }
+        
+        .databox.enroute {
+            -ms-grid-row: 1;
+            -ms-grid-column: 7;
+            text-align:center;
+        }
+        
+        .arrive {
+            grid-area: arrive;
+            -ms-grid-row: 3;
+            -ms-grid-column: 9;
+        }
+        
+        .databox.arrive {
+            -ms-grid-row: 1;
+            -ms-grid-column: 9;
+            text-align:center;
+        }
+        
+        .address {
+            grid-area: address;
+            -ms-grid-row: 3;
+            -ms-grid-column: 11;
+        }
+        
+        .databox.address {
+            -ms-grid-row: 1;
+            -ms-grid-column: 11;
+            text-align:left;
+        }
+        
+        .apparatus {
+            grid-area: apparatus;
+            -ms-grid-row: 3;
+            -ms-grid-column: 13;
+        }
+        
+        .databox.apparatus {
+            -ms-grid-row: 1;
+            -ms-grid-column: 13;
+            text-align:center;
+        }
+        
+        .data {
+            grid-area: data;
+        }
+        .appdata {
+            -ms-grid-row: 1;
+            -ms-grid-column: 13;
+            grid-area: appdata;
+        }
+        
+        .wrapper {
+            display: -ms-grid;
+            display: grid;
+            grid-gap: 10px;
+                grid-template-columns: 100px 70px 85px 100px 85px 1fr 1fr;
+                -ms-grid-columns: 100px 10px 70px 10px 85px 10px 100px 10px 85px 10px 1fr 10px 1fr;
+                -ms-grid-rows: 100px 10px 50px 10px;
+                grid-template-areas:
+                    "header header header header header header header"
+                    "incident type alarm enroute arrive address apparatus"
+                    "data data data data data data data";
+                background-color: #fff;
+                color: #444;
+            }
+            
+        .data {
+            display: -ms-grid;
+            display: grid;
+            grid-gap: 10px;
+            -ms-grid-columns: 100px 10px 70px 10px 85px 10px 100px 10px 85px 10px 1fr 10px 1fr;
+            grid-template-columns: 100px 70px 85px 100px 85px 1fr 1fr;
+            grid-template-areas:
+                    "incident type alarm enroute arrive address appdata";
+            background-color: #fff;
+            color: #444;
+            margin-bottom:10px;
+            font-weight:bold;
+        }
+        
+        .data:nth-child(odd) {
+            background-color: #cccccc;
+            color: #000;
+        }
+        
+        .data:nth-child(even) {
+            background-color: #EEEEEE;
+            color: #000;
+        }
+            
+        .appdata {
+            display: -ms-grid;
+            display: grid;
+            -ms-grid-columns: 75px 10px 75px 10px 75px 10px 75px 10px 75px;
+            grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+            grid-template-rows: auto;
+            padding:5px;
+            margin-bottom:10px;
+            }
+        .nrt {
+            background:#B52735;
+            color: #FFFFFF;
+            border: 2px solid #000000;
+            font-weight: bold;
+        }
+        
+        .atscene {
+            background:#FFFFFF;
+            color: #B52735;
+            border: 2px solid #000000;
+            font-weight: bold;
+        }
+        
+        .transporting {
+            background:#FFFFFF;
+            color: #000000;
+            border: 2px solid #000000;
+            font-weight: bold;
+        }
+        
+        .arrived {
+            background:#000000;
+            color: #FFFFFF;
+            border: 2px solid #000000;
+            font-weight: bold;
+        }
+        
+        .dispatched {
+            background:#E8DE2A;
+            color: #1D1D1D;
+            border: 2px solid #000000;
+            font-weight: bold;
+        }
+        
+            .box {
+                background-color: #444;
+                color: #fff;
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 150%;
+                text-align: center;
+            }
+        
+        .key {
+            display: -ms-grid;
+            display: grid;
+            grid-gap: 10px;
+            -ms-grid-columns: 120px 10px 100px;
+            -ms-grid-rows: 40px 10px 40px 10px 40px;
+            grid-template-columns: 120px 100px;
+            float: right;
+            padding-bottom: 20px;
+        }
+        
+        .key1.nrt {
+            -ms-grid-row: 1;
+            -ms-grid-column: 1;
+            text-align:center;
+        }
+        
+        .key2.atscene {
+            -ms-grid-row: 1;
+            -ms-grid-column: 3;
+            text-align:center;
+        }
+        
+        .key3.transporting {
+            -ms-grid-row: 3;
+            -ms-grid-column: 1;
+            text-align:center;
+        }
+        
+        .key4.arrived {
+            -ms-grid-row: 3;
+            -ms-grid-column: 3;
+            text-align:center;
+        }
+        
+        .key5.dispatched {
+            -ms-grid-row: 5;
+            -ms-grid-column: 1;
+            text-align:center;
+        }
+
+        .vehicle {
+            margin: 10px 10px 0px 0px;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- <iframe src="https://fire.lexingtonky.gov/open/status/status.htm" frameborder="0" width="100%" height="1000px" id="iframe" ></iframe> -->
+    <div class="wrapper">
+        <div class="box header">
+            <span id="headerTitle"></span>
+            <br>
+            <span id="headerTime"></span>
+            <br>
+            <span id="headerCount"></span>
+        </div>
+        <div class="box incident">Incident</div>
+        <div class="box type">Type</div>
+        <div class="box alarm">Alarm</div>
+        <div class="box enroute">Enroute</div>
+        <div class="box arrive">Arrive</div>
+        <div class="box address">Address</div>
+        <div class="box apparatus">Apparatus Assigned</div>
+    </div>
+    
+    <div id="inserter"></div>
+
+    <p style="font-weight:bold; text-align:right;">APPARATUS KEY:</p>
+    <div class="key">
+        <div class="databox key1 nrt">Enroute</div>
+        <div class="databox key2 atscene">At Scene</div>
+        <div class="databox key3 transporting">Transporting</div>
+        <div class="databox key4 arrived">Arrived</div>
+        <div class="databox key5 dispatched">Dispatched</div>
+    </div>
+
+	<script>
+        emergencyCodes = {
+            "FAA1": "Aircraft Alert 1",
+            "FAA2": "Aircraft Alert 2",
+            "FAA3": "Aircraft Alert 3",
+            "FASB": "AIRCRAFT STANDBY BLUEGRASS STATION",
+            "FASB": "Aircraft Standby Bluegrass Station",
+            "FASS": "Assistance",
+            "FBAS": "Barricaded Subject",
+            "FBOT": "Bomb Threat",
+            "FBWD": "Bomb Threat with a Device",
+            "FBGL": "Brush/Grass/Leaf/Tree Fire",
+            "FBERTR": "BERT - Rescue",
+            "FBERTH": "BERT - Hazmat - Notify Shift Comndr B4 Dispatch",
+            "FCMS": "Carbon Monoxide Sickness",
+            "FCAR": "Carbon Monoxide Situation",
+            "FCHI": "Chimney Fire",
+            "FCOL": "Collapse Rescue",
+            "FCSEPP": "Community Emergency - Bluegrass Army Depot",
+            "FCSR": "Confined Space Rescue",
+            "FDVR": "Dive Rescue Response",
+            "FDUM": "Dumpster Fire",
+            "FELC": "Electrical Cutoff",
+            "FELF": "Electrical Fire",
+            "FELS": "Elevator Situation",
+            "FEXP": "Explosion",
+            "FFIA": "Fire in an Appliance",
+            "FDET": "Fire Detail",
+            "FFHMR": "Full Hazmat Response",
+            "FGAC": "Gas Cutoff",
+            "FGAS": "Gasoline/Fuel Leak",
+            "FHMC": "Hazardous Material",
+            "FSCU": "Hazmat - MVC General Spill Clean",
+            "FHCL": "Hazmat - Clandestine Lab",
+            "FMERC": "Hazmat - Mercury Spill",
+            "FHGEO": "Hazmat - Natural Gas from Geothermal/Water Well",
+            "FINV": "Investigation",
+            "FLAR": "Large Animal Rescue",
+            "FLIFT": "Lift Assist",
+            "FLOI": "Lock In / Lock Out",
+            "FMAI": "Mailbox Fire",
+            "FMDR": "Mass Decon Response - UK Commonwealth Stadium",
+            "FMIS": "Missing Person",
+            "FNGL": "Natural Gas Leak (Natural Gas & Propane)",
+            "FOTF": "Other Fire",
+            "FOTS": "Other Service",
+            "FPRT": "Private / Telephone Fire Alarm",
+            "FSMO": "Smoke in the Area / Strucutre / Odor",
+            "FGAO": "Natural Gas Odor (Natural Gas or Propane)",
+            "FK9R": "Out of County Investigation K-9 Response",
+            "FPLB": "Reduced Response (Plan B)",
+            "FWAR": "Remove Water",
+            "FROP": "Rope/High Angle Rescue",
+            "FSIA": "Smoke in the Area - Outdoors",
+            "FSMO": "Smoke in Area / Structure / Odor",
+            "FSRCU": "Special Rescue Related to Civil Unrest",
+            "FSTR": "Structure Fire",
+            "FSTRW": "Structure Fire - Working",
+            "FTRA": "Train Accident",
+            "FTRN": "Transformer Fire",
+            "FTRS": "Trash Fire",
+            "FTRE": "Trench Rescue",
+            "FUNT": "Unknown Trouble",
+            "FVIS": "Vehicle in a Structure",
+            "FVAJ": "Vechicle Accident with Jaws",
+            "FVEH": "Vehicle Fire",
+            "FVNS": "Vehicle Fire Near a Structure",
+            "FVLA": "Vehicle Fire Large Vehicle",
+            "FWAC": "Water Cutoff",
+            "FWTR": "Water Rescue",
+            "MED": "Medical Response"
+        }
+
+        emergencyWebAddress = "https://fire.lexingtonky.gov/open/status/status.htm"
+        api_url = `https://cors-anywhere-proxy-urri.onrender.com/${emergencyWebAddress}`
+        // api_url = "https://joseph.free.beeceptor.com/fire"
+
+
+        // The good method
+        // Get data from emergency web address through proxy server and store it in lexData
+        lexData = null
+        var req = new XMLHttpRequest(); 
+        req.open('GET', api_url, false);  
+        // req.responseType = "document" //wanted to try getting actual HTML from request but site only works synchronously
+        req.send();  
+        if(req.status == 200) {  
+            console.log("web request succeeded")
+            lexData = req.responseText
+        } else {
+            console.log("fire.lexington.gov request failed")
+        }
+
+        // Take HTML from https://fire.lexingtonky.gov/open/status/status.htm and parse it into the actual data that site displays
+        // Returns an array of the rows of data
+        function parseHtmltoData(data) {
+            dataArray = [];
+            dataPoints = data.getElementsByClassName("data");
+
+            for(var i = 0; i < dataPoints.length; i++) {
+
+                dataEntry = {
+                    incident: "",
+                    type: "",
+                    alarm: "",
+                    enroute: "",
+                    arrive: "",
+                    address: "",
+                    apparatusAssigned: [],
+                }
+
+                dataPoint = dataPoints[i];
+
+                dataEntry.incident = dataPoint.getElementsByClassName("incident")[0].textContent;
+                dataEntry.type = dataPoint.getElementsByClassName("type")[0].textContent;
+                dataEntry.alarm = dataPoint.getElementsByClassName("alarm")[0].textContent;
+                dataEntry.enroute = dataPoint.getElementsByClassName("enroute")[0].textContent;
+                dataEntry.arrive = dataPoint.getElementsByClassName("arrive")[0].textContent;
+                dataEntry.address = dataPoint.getElementsByClassName("address")[0].textContent;
+
+                apparatus = dataPoint.getElementsByClassName("appdata")[0].getElementsByClassName("databox");
+                for(var j = 0; j < apparatus.length; j++) {
+                    dataEntry.apparatusAssigned.push({"apparatus": apparatus[j].textContent, "status": apparatus[j].classList[2]});
+                }
+
+                dataArray.push(dataEntry);
+            }
+
+            // console.log(dataArray);
+            return(dataArray);
+
+        }
+
+        // Insert data rows into the DOM
+        function populateData(data) {
+            insertDiv = document.getElementById("inserter");
+
+            for (var i = 0; i < data.length; i++) {
+                insertDiv.innerHTML += `<div' class='data num${i}'></div>`;
+                dataEntry = data[i]
+
+                activeRow = insertDiv.children[i];
+                activeRow.innerHTML += `<div class="databox incident">${dataEntry.incident}</div>`;
+                activeRow.innerHTML += `<div class="databox type">${emergencyCodes[dataEntry.type]}</div>`;
+                activeRow.innerHTML += `<div class="databox alarm">${dataEntry.alarm}</div>`;
+                activeRow.innerHTML += `<div class="databox enroute">${dataEntry.enroute}</div>`;
+                activeRow.innerHTML += `<div class="databox address">${dataEntry.address}</div>`;
+                activeRow.innerHTML += `<div class="databox arrive">${dataEntry.arrive}</div>`;
+                activeRow.innerHTML += `<div class="appdata"></div>`;
+
+                apparatusColumn = activeRow.lastChild;
+                apparatusAssigned = dataEntry.apparatusAssigned;
+                for (var j = 0; j < apparatusAssigned.length; j++) {
+                    specificApparatus = apparatusAssigned[j];
+                    apparatus = specificApparatus.apparatus;
+                    appStatus = specificApparatus.status;
+                    apparatusColumn.innerHTML += `<div class="databox vehicle ${appStatus}">${apparatus}</div>`;
+                }
+
+                activeRow.innerHTML += `<iframe src='https://maps.google.com/maps?&amp;q=${dataEntry.address}&amp;output=embed' width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`
+
+            }
+        }
+
+        // Insert title and time data into the website header
+        function setHeaderInfo(data) {
+            lines = data.getElementsByClassName("header")[0].innerHTML.split("<br>");
+            document.getElementById("headerTitle").textContent = lines[0];
+            document.getElementById("headerTime").textContent = lines[1];
+            document.getElementById("headerCount").innerHTML = lines[2];
+        }
+
+        //Convert text response to HTML object
+        const parser = new DOMParser();
+        lexData = parser.parseFromString(lexData, 'text/html');
+
+        // Display info on page
+        headerInfo = setHeaderInfo(lexData);
+        dataArray = parseHtmltoData(lexData);
+        populateData(dataArray);
+
+
+
+
+
+    </script>
+  </body>
+</html>
+
+
