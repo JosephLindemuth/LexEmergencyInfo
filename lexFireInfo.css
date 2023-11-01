@@ -1,0 +1,256 @@
+body {
+    margin: 40px;
+    font-family: 'Arial', "Helvetica Neue", Helvetica, sans-serif;
+}
+.databox {
+    background-color: none;
+    color: #1D1D1D;
+    border-radius: 6px;
+    padding: 10px;
+    text-align:center;
+}
+
+.header {
+    grid-area: header;
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 13;
+}
+
+.open {
+    grid-area: open;
+}
+
+.incident {
+    grid-area: incident;
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+}
+
+.databox.incident {
+    text-align:center;
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+}
+
+.type {
+    grid-area: type;
+    -ms-grid-row: 3;
+    -ms-grid-column: 3;
+}
+
+.databox.type {
+    -ms-grid-row: 1;
+    -ms-grid-column: 3;
+    text-align:center;
+}
+
+.alarm {
+    grid-area: alarm;
+    -ms-grid-row: 3;
+    -ms-grid-column: 5;
+}
+
+.databox.alarm {
+    -ms-grid-row: 1;
+    -ms-grid-column: 5;
+    text-align:center;
+}
+
+.enroute {
+    grid-area: enroute;
+    -ms-grid-row: 3;
+    -ms-grid-column: 7;
+}
+
+.databox.enroute {
+    -ms-grid-row: 1;
+    -ms-grid-column: 7;
+    text-align:center;
+}
+
+.arrive {
+    grid-area: arrive;
+    -ms-grid-row: 3;
+    -ms-grid-column: 9;
+}
+
+.databox.arrive {
+    -ms-grid-row: 1;
+    -ms-grid-column: 9;
+    text-align:center;
+}
+
+.address {
+    grid-area: address;
+    -ms-grid-row: 3;
+    -ms-grid-column: 11;
+}
+
+.databox.address {
+    -ms-grid-row: 1;
+    -ms-grid-column: 11;
+    text-align:left;
+}
+
+.apparatus {
+    grid-area: apparatus;
+    -ms-grid-row: 3;
+    -ms-grid-column: 13;
+}
+
+.databox.apparatus {
+    -ms-grid-row: 1;
+    -ms-grid-column: 13;
+    text-align:center;
+}
+
+.data {
+    grid-area: data;
+}
+.appdata {
+    -ms-grid-row: 1;
+    -ms-grid-column: 13;
+    grid-area: appdata;
+}
+
+.wrapper {
+    display: -ms-grid;
+    display: grid;
+    grid-gap: 10px;
+        grid-template-columns: 100px 70px 85px 100px 85px 1fr 1fr;
+        -ms-grid-columns: 100px 10px 70px 10px 85px 10px 100px 10px 85px 10px 1fr 10px 1fr;
+        -ms-grid-rows: 100px 10px 50px 10px;
+        grid-template-areas:
+            "header header header header header header header"
+            "incident type alarm enroute arrive address apparatus"
+            "data data data data data data data";
+        background-color: #fff;
+        color: #444;
+    }
+    
+.data {
+    display: -ms-grid;
+    display: grid;
+    grid-gap: 10px;
+    -ms-grid-columns: 100px 10px 70px 10px 85px 10px 100px 10px 85px 10px 1fr 10px 1fr;
+    grid-template-columns: 100px 70px 85px 100px 85px 1fr 1fr;
+    grid-template-areas:
+            "incident type alarm enroute arrive address appdata";
+    background-color: #fff;
+    color: #444;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+.data:nth-child(odd) {
+    background-color: #cccccc;
+    color: #000;
+}
+
+.data:nth-child(even) {
+    background-color: #EEEEEE;
+    color: #000;
+}
+    
+.appdata {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 75px 10px 75px 10px 75px 10px 75px 10px 75px;
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+    grid-template-rows: auto;
+    padding:5px;
+    margin-bottom:10px;
+    }
+.nrt {
+    background:#B52735;
+    color: #FFFFFF;
+    border: 2px solid #000000;
+    font-weight: bold;
+}
+
+.atscene {
+    background:#FFFFFF;
+    color: #B52735;
+    border: 2px solid #000000;
+    font-weight: bold;
+}
+
+.transporting {
+    background:#FFFFFF;
+    color: #000000;
+    border: 2px solid #000000;
+    font-weight: bold;
+}
+
+.arrived {
+    background:#000000;
+    color: #FFFFFF;
+    border: 2px solid #000000;
+    font-weight: bold;
+}
+
+.dispatched {
+    background:#E8DE2A;
+    color: #1D1D1D;
+    border: 2px solid #000000;
+    font-weight: bold;
+}
+
+    .box {
+        background-color: #444;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 150%;
+        text-align: center;
+    }
+
+.key {
+    display: -ms-grid;
+    display: grid;
+    grid-gap: 10px;
+    -ms-grid-columns: 120px 10px 100px;
+    -ms-grid-rows: 40px 10px 40px 10px 40px;
+    grid-template-columns: 120px 100px;
+    float: right;
+    padding-bottom: 20px;
+}
+
+.key1.nrt {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    text-align:center;
+}
+
+.key2.atscene {
+    -ms-grid-row: 1;
+    -ms-grid-column: 3;
+    text-align:center;
+}
+
+.key3.transporting {
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+    text-align:center;
+}
+
+.key4.arrived {
+    -ms-grid-row: 3;
+    -ms-grid-column: 3;
+    text-align:center;
+}
+
+.key5.dispatched {
+    -ms-grid-row: 5;
+    -ms-grid-column: 1;
+    text-align:center;
+}
+
+.vehicle {
+    margin: 10px 10px 0px 0px;
+}
+
+.mapButton {
+    padding-left: 10px;
+}
