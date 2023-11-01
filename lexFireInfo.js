@@ -1,75 +1,3 @@
-emergencyCodes = {
-    "FAA1": "Aircraft Alert 1",
-    "FAA2": "Aircraft Alert 2",
-    "FAA3": "Aircraft Alert 3",
-    "FASB": "AIRCRAFT STANDBY BLUEGRASS STATION",
-    "FASB": "Aircraft Standby Bluegrass Station",
-    "FASS": "Assistance",
-    "FBAS": "Barricaded Subject",
-    "FBOT": "Bomb Threat",
-    "FBWD": "Bomb Threat with a Device",
-    "FBGL": "Brush/Grass/Leaf/Tree Fire",
-    "FBERTR": "BERT - Rescue",
-    "FBERTH": "BERT - Hazmat - Notify Shift Comndr B4 Dispatch",
-    "FCMS": "Carbon Monoxide Sickness",
-    "FCAR": "Carbon Monoxide Situation",
-    "FCHI": "Chimney Fire",
-    "FCOL": "Collapse Rescue",
-    "FCSEPP": "Community Emergency - Bluegrass Army Depot",
-    "FCSR": "Confined Space Rescue",
-    "FDVR": "Dive Rescue Response",
-    "FDUM": "Dumpster Fire",
-    "FELC": "Electrical Cutoff",
-    "FELF": "Electrical Fire",
-    "FELS": "Elevator Situation",
-    "FEXP": "Explosion",
-    "FFIA": "Fire in an Appliance",
-    "FDET": "Fire Detail",
-    "FFHMR": "Full Hazmat Response",
-    "FGAC": "Gas Cutoff",
-    "FGAS": "Gasoline/Fuel Leak",
-    "FHMC": "Hazardous Material",
-    "FSCU": "Hazmat - MVC General Spill Clean",
-    "FHCL": "Hazmat - Clandestine Lab",
-    "FMERC": "Hazmat - Mercury Spill",
-    "FHGEO": "Hazmat - Natural Gas from Geothermal/Water Well",
-    "FINV": "Investigation",
-    "FLAR": "Large Animal Rescue",
-    "FLIFT": "Lift Assist",
-    "FLOI": "Lock In / Lock Out",
-    "FMAI": "Mailbox Fire",
-    "FMDR": "Mass Decon Response - UK Commonwealth Stadium",
-    "FMIS": "Missing Person",
-    "FNGL": "Natural Gas Leak (Natural Gas & Propane)",
-    "FOTF": "Other Fire",
-    "FOTS": "Other Service",
-    "FPRT": "Private / Telephone Fire Alarm",
-    "FSMO": "Smoke in the Area / Strucutre / Odor",
-    "FGAO": "Natural Gas Odor (Natural Gas or Propane)",
-    "FK9R": "Out of County Investigation K-9 Response",
-    "FPLB": "Reduced Response (Plan B)",
-    "FWAR": "Remove Water",
-    "FROP": "Rope/High Angle Rescue",
-    "FSIA": "Smoke in the Area - Outdoors",
-    "FSMO": "Smoke in Area / Structure / Odor",
-    "FSRCU": "Special Rescue Related to Civil Unrest",
-    "FSTR": "Structure Fire",
-    "FSTRW": "Structure Fire - Working",
-    "FTRA": "Train Accident",
-    "FTRN": "Transformer Fire",
-    "FTRS": "Trash Fire",
-    "FTRE": "Trench Rescue",
-    "FUNT": "Unknown Trouble",
-    "FVIS": "Vehicle in a Structure",
-    "FVAJ": "Vechicle Accident with Jaws",
-    "FVEH": "Vehicle Fire",
-    "FVNS": "Vehicle Fire Near a Structure",
-    "FVLA": "Vehicle Fire Large Vehicle",
-    "FWAC": "Water Cutoff",
-    "FWTR": "Water Rescue",
-    "MED": "Medical Response"
-}
-
 emergencyWebAddress = "https://fire.lexingtonky.gov/open/status/status.htm"
 api_url = `https://cors-anywhere-proxy-urri.onrender.com/${emergencyWebAddress}`
 // api_url = "https://joseph.free.beeceptor.com/fire"
@@ -136,10 +64,11 @@ function populateData(data) {
     for (var i = 0; i < data.length; i++) {
         insertDiv.innerHTML += `<div' class='data num${i}'></div>`;
         dataEntry = data[i]
+        emergencyCode = emergencyCodes[dataEntry.type]; // from emergencyCodes.js
 
         activeRow = insertDiv.children[i];
         activeRow.innerHTML += `<div class="databox incident">${dataEntry.incident}</div>`;
-        activeRow.innerHTML += `<div class="databox type">${emergencyCodes[dataEntry.type]}</div>`;
+        activeRow.innerHTML += `<div class="databox type">${emergencyCode}</div>`;
         activeRow.innerHTML += `<div class="databox alarm">${dataEntry.alarm}</div>`;
         activeRow.innerHTML += `<div class="databox enroute">${dataEntry.enroute}</div>`;
         activeRow.innerHTML += `<div class="databox address">${dataEntry.address}</div>`;
