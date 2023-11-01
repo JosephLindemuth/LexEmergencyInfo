@@ -1,4 +1,4 @@
-const emergencyCodes = emergencyCodes = {
+const emergencyCodes = {
     "FAA1": "Aircraft Alert 1",
     "FAA2": "Aircraft Alert 2",
     "FAA3": "Aircraft Alert 3",
