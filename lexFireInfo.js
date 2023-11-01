@@ -64,11 +64,11 @@ function populateData(data) {
     for (var i = 0; i < data.length; i++) {
         insertDiv.innerHTML += `<div' class='data num${i}'></div>`;
         dataEntry = data[i]
-        emergencyCode = emergencyCodes[dataEntry.type]; // from emergencyCodes.js
+        emergencyType = emergencyCodes[dataEntry.type] || dataEntry.type; // from emergencyCodes.js
 
         activeRow = insertDiv.children[i];
         activeRow.innerHTML += `<div class="databox incident">${dataEntry.incident}</div>`;
-        activeRow.innerHTML += `<div class="databox type">${emergencyCode}</div>`;
+        activeRow.innerHTML += `<div class="databox type">${emergencyType}</div>`;
         activeRow.innerHTML += `<div class="databox alarm">${dataEntry.alarm}</div>`;
         activeRow.innerHTML += `<div class="databox enroute">${dataEntry.enroute}</div>`;
         activeRow.innerHTML += `<div class="databox address">${dataEntry.address}</div>`;

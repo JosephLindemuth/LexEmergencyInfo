@@ -1,4 +1,4 @@
-emergencyCodes = {
+const emergencyCodes = emergencyCodes = {
     "FAA1": "Aircraft Alert 1",
     "FAA2": "Aircraft Alert 2",
     "FAA3": "Aircraft Alert 3",
@@ -62,10 +62,12 @@ emergencyCodes = {
     "FUNT": "Unknown Trouble",
     "FVIS": "Vehicle in a Structure",
     "FVAJ": "Vechicle Accident with Jaws",
+    "FVEA": "Vehicle Accident",
     "FVEH": "Vehicle Fire",
     "FVNS": "Vehicle Fire Near a Structure",
     "FVLA": "Vehicle Fire Large Vehicle",
     "FWAC": "Water Cutoff",
+    "FWID": "Wires Down",
     "FWTR": "Water Rescue",
     "MED": "Medical Response"
 }
